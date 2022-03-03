@@ -3,15 +3,51 @@
 #include<math.h>
 int emailAlertCallCount = 0;
 int ledAlertCallCount = 0;
-struct Stats compute_statistics(const float* numberset, int setlength) {
-    struct Stats s;
-    s.average = 0;
-    s.min = 0;
-    s.max = 0;
-}
+
 void emailAlerter() {
 emailAlertCallCount++ ;}
 
 void ledAlerter(){
 ledAlertCallCount++ ;
 }
+
+
+struct Stats compute_statistics(const float* numberset, int setlength) {
+    struct Stats statistics;
+    int i;
+    float sum = 0.0, max = numberset[0], min = numberset[0];
+    //Compute min, max and average
+	
+if(setlength!=0){
+    for (i=0; i<setlength; i++)
+    {
+        sum += numberset[i];
+        if(numberset[i] > max){
+		max = numberset[i];
+	}
+        if(numberset[i] < min){
+		min = numberset[i];
+	}
+    }
+    
+    //Update the struct members   
+    statistics.average = sum/setlength;
+    statistics.min = min;
+    statistics.max = max;
+    } else{
+    statistics.average = NAN;
+    statistics.min = NAN;
+    statistics.max = NAN;
+    }
+    return statistics;  
+}
+
+void check_and_alert(float maxThreshold, alerter_funcptr alerters[], struct Stats computedStats){
+    //If the maximum value exceeded threshold, raise an alert
+	if(computedStats.max >  maxThreshold){
+		alerters[0]();
+		alerters[1]();
+	}
+} 
+ 
+
