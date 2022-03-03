@@ -20,13 +20,6 @@ TEST_CASE("reports average, minimum and maximum") {
 }
 
 TEST_CASE("average is NaN for empty array") {
-	struct Stats computedStats;
-	float numberset[] = {};
-	int setlength = sizeof(numberset) / sizeof(numberset[0]);
-	computedStats = compute_statistics(numberset, setlength);
-	REQUIRE(isnan(computedStats.average) == true);
-	REQUIRE(isnan(computedStats.max) == true);
-	REQUIRE(isnan(computedStats.min) == true);
 }
 
 TEST_CASE("raises alerts when max is greater than threshold") {
