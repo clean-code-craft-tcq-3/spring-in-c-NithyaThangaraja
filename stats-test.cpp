@@ -1,14 +1,12 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "catch.hpp"
-#include "stats.c"
+#include "stats.h"
+#include "alert.h"
 #include <stdlib.h>
 #include <math.h>
 
-extern "C" {
-	#include "stats.h"
-	#include "alert.h"
-} 
+
 TEST_CASE("reports average, minimum and maximum") {
     float numberset[] = {1.5, 8.9, 3.2, 4.5};
     int setlength = sizeof(numberset) / sizeof(numberset[0]);
